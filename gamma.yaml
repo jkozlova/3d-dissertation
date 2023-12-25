@@ -1,0 +1,63 @@
+name: avatar
+mode: gamma
+pc_name: pc
+lr: 1e-4
+epochs: 1000
+vgg_epoch: 0
+
+batch_size: 8
+batch_count: 8
+
+disentangled_loss: True
+blur: False
+
+z_augm: True
+synth_z_augm: False
+synth_augm: False
+synth_reg_strategy: False
+
+use_mouth: True
+tex_mouth_path: "weights/flame/texture.png"
+
+losses:
+  vgg_loss: 0.15
+  bg_loss: 0.01
+  mask_mse_loss: 0.5
+  mse_loss: 0.1
+  nonhead_loss: 0.1
+  shape_code: 0.01
+  expr_code: 0.3
+  pose_code: 0.01
+  apea_code: 0.01
+
+pretrain: True 
+path_to_weights: weights/beta.pt
+
+path_to_train_npz: data/gamma/avatar/train/prepared_npz
+path_to_train_img: data/gamma/avatar/prepared
+path_to_val_npz: data/gamma/avatar/test/prepared_npz
+path_to_val_img: data/gamma/avatar/prepared
+
+FlameDatasetOptions:
+  n_shape: 100
+  n_expr: 100
+  n_tex: 100
+  tex_res: 512
+  ignore_lower_neck: True
+  device: cuda
+
+BaseOptions:
+  bg_type: black
+  pose_dims: 12
+  shape_dims: 100
+  expression_dims: 100
+  albedo_dims: 100
+  illumination_dims: 27
+  num_sample_coarse: 32
+  num_sample_fine: 128
+  world_z1: 0.2
+  world_z2: -0.2
+  mlp_hidden_nchannels: 384
+  featmap_size: 16
+  featmap_nc: 128
+  pred_img_size: 512
